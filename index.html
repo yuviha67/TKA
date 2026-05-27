@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil TKA 2026 - SD Negeri Krampyangan</title>
+    <style>
+        /* CSS murni agar tampilan tetap bagus meski tanpa internet */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #eff6ff; 
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 16px;
+        }
+        .card {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 24px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 32px;
+        }
+        
+        /* Bagian Header & Logo Baru */
+        .header { text-align: center; margin-bottom: 32px; }
+        .icon-wrapper {
+            width: 80px; 
+            height: 80px;
+            border-radius: 50%;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            margin: 0 auto 12px;
+            overflow: hidden; /* Menjaga agar logo tetap bulat */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .icon-wrapper img {
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; /* Memastikan logo pas di dalam lingkaran */
+        }
+        .header h1 { font-size: 20px; font-weight: 700; color: #111827; margin-bottom: 4px; line-height: 1.2; }
+        .header p { font-size: 14px; color: #6b7280; }
+        
+        /* Bagian Form Input */
+        .form-group { margin-bottom: 16px; }
+        label { display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 8px; text-align: center; }
+        input[type="number"] {
+            width: 100%; padding: 14px 16px;
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            text-align: center;
+            font-size: 18px; font-weight: 600; letter-spacing: 2px;
+            outline: none; transition: all 0.2s;
+        }
+        input[type="number"]:focus {
+            border-color: #3b82f6; background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        input[type="number"]::-webkit-inner-spin-button, 
+        input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        
+        .btn-primary {
+            width: 100%; padding: 14px;
+            background-color: #2563eb; color: #ffffff;
+            border: none; border-radius: 16px;
+            font-size: 16px; font-weight: 600; cursor: pointer;
+            transition: background-color 0.2s; margin-top: 8px;
+        }
+        .btn-primary:hover { background-color: #1d4ed8; }
+        
+        .btn-secondary {
+            width: 100%; padding: 12px;
+            background-color: #f3f4f6; color: #374151;
+            border: none; border-radius: 16px;
+            font-size: 14px; font-weight: 600; cursor: pointer;
+            transition: background-color 0.2s; margin-top: 24px;
+        }
+        .btn-secondary:hover { background-color: #e5e7eb; }
+        
+        #pesan-error {
+            display: none;
+            background-color: #fef2f2; color: #ef4444;
+            padding: 10px; border-radius: 8px; font-size: 14px;
+            text-align: center; font-weight: 500; margin-bottom: 16px;
+        }
+        
+        /* Bagian Hasil */
+        #section-hasil { display: none; }
+        .result-header { text-align: center; border-bottom: 1px solid #f3f4f6; padding-bottom: 16px; margin-bottom: 20px; }
+        .badge-success {
+            display: inline-block; background-color: #dcfce3; color: #15803d;
+            font-size: 12px; font-weight: 600; padding: 4px 12px;
+            border-radius: 99px; margin-bottom: 8px;
+        }
+        .student-name { font-size: 18px; font-weight: 700; color: #111827; text-transform: uppercase; margin-bottom: 4px; }
+        .student-info { font-size: 14px; color: #6b7280; margin-bottom: 2px; }
+        
+        .subject-card {
+            background-color: #eff6ff; border: 1px solid #dbeafe;
+            padding: 16px; border-radius: 16px; text-align: center;
+            margin-bottom: 12px;
+        }
+        .subject-title { font-size: 12px; font-weight: 600; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .subject-score { font-size: 32px; font-weight: 700; color: #111827; line-height: 1; }
+        .subject-desc { font-size: 14px; font-weight: 500; color: #4b5563; margin-top: 4px; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="header">
+            <div class="icon-wrapper">
+                <img src="169981.jpg" alt="Logo UPT SDN Krampyangan">
+            </div>
+            <h1>Pengumuman TKA 2026</h1>
+            <p>UPT SD Negeri Krampyangan</p>
+        </div>
+
+        <div id="section-pencarian">
+            <form onsubmit="cekHasil(event)">
+                <div class="form-group">
+                    <label for="nisn">Masukkan NISN Siswa</label>
+                    <input type="number" id="nisn" placeholder="Contoh: 0135026239" required>
+                </div>
+                <div id="pesan-error"></div>
+                <button type="submit" class="btn-primary">Lihat Hasil</button>
+            </form>
+        </div>
+
+        <div id="section-hasil">
+            <div class="result-header">
+                <span class="badge-success">Data Ditemukan</span>
+                <h2 id="nama-siswa" class="student-name">Nama Siswa</h2>
+                <p id="nisn-siswa" class="student-info">NISN: -</p>
+                <p id="ttl-siswa" class="student-info">Tanggal Lahir: -</p>
+            </div>
+
+            <div class="subject-card">
+                <p class="subject-title">Matematika</p>
+                <div class="subject-score" id="nilai-mtk">00.00</div>
+                <p class="subject-desc" id="ket-mtk">-</p>
+            </div>
+
+            <div class="subject-card">
+                <p class="subject-title">Bahasa Indonesia</p>
+                <div class="subject-score" id="nilai-ind">00.00</div>
+                <p class="subject-desc" id="ket-ind">-</p>
+            </div>
+
+            <button onclick="kembali()" class="btn-secondary">Kembali</button>
+        </div>
+    </div>
+
+    <script>
+        // Data Siswa (Silakan ubah "DD-Bulan-YYYY" dengan tanggal lahir asli siswa)
+        const dataSiswa = {
+            "0135026239": { nama: "Rendi Hariyanto", tglLahir: "01 Januari 2014", mtk: "63.33", ketMtk: "Baik", ind: "70.00", ketInd: "Memadai" },
+            "0144187077": { nama: "ANISA CITRA MAULUDDIAH", tglLahir: "02 Februari 2014", mtk: "56.67", ketMtk: "Baik", ind: "56.67", ketInd: "Memadai" },
+            "0148801894": { nama: "FABRIAND MUHAMMAD AL FATIH", tglLahir: "03 Maret 2014", mtk: "73.33", ketMtk: "Baik", ind: "83.33", ketInd: "Baik" },
+            "3134107860": { nama: "LIYANA ZAHIRAH", tglLahir: "04 April 2014", mtk: "56.67", ketMtk: "Baik", ind: "63.33", ketInd: "Memadai" },
+            "0134092040": { nama: "NESYA AYU MAHARANI", tglLahir: "05 Mei 2014", mtk: "50.00", ketMtk: "Memadai", ind: "73.33", ketInd: "Memadai" },
+            "0136768235": { nama: "MUCHAMMAD NURIL ALFAN", tglLahir: "DD-Bulan-YYYY", mtk: "60.00", ketMtk: "Baik", ind: "90.00", ketInd: "Baik" },
+            "0137151022": { nama: "INTAN NURAINI", tglLahir: "DD-Bulan-YYYY", mtk: "36.67", ketMtk: "Memadai", ind: "43.33", ketInd: "Kurang" },
+            "0144502693": { nama: "AISYA MAY QILLA AZZURA", tglLahir: "DD-Bulan-YYYY", mtk: "63.33", ketMtk: "Baik", ind: "86.67", ketInd: "Baik" },
+            "0133656278": { nama: "KHAIRA AZNII FITRIA", tglLahir: "DD-Bulan-YYYY", mtk: "53.33", ketMtk: "Memadai", ind: "80.00", ketInd: "Baik" },
+            "0137029647": { nama: "RALHANA QONITAH EFENDI", tglLahir: "DD-Bulan-YYYY", mtk: "46.67", ketMtk: "Memadai", ind: "70.00", ketInd: "Memadai" },
+            "0136845463": { nama: "MUHAMAD RAHMAD MAULUDIN", tglLahir: "DD-Bulan-YYYY", mtk: "33.33", ketMtk: "Memadai", ind: "63.33", ketInd: "Memadai" },
+            "0149298212": { nama: "FARHAN ABIDZAR", tglLahir: "DD-Bulan-YYYY", mtk: "36.67", ketMtk: "Memadai", ind: "43.33", ketInd: "Kurang" },
+            "3134829641": { nama: "FALIAN ZAKIAH ANGGRAINI", tglLahir: "DD-Bulan-YYYY", mtk: "53.33", ketMtk: "Memadai", ind: "56.67", ketInd: "Memadai" },
+            "0142695611": { nama: "MUKHAMMAD RAFABIYAN PUTRA SISWANTO", tglLahir: "DD-Bulan-YYYY", mtk: "50.00", ketMtk: "Memadai", ind: "50.00", ketInd: "Memadai" },
+            "0132568205": { nama: "FERLITA DWI AGUSTIN", tglLahir: "DD-Bulan-YYYY", mtk: "43.33", ketMtk: "Memadai", ind: "70.00", ketInd: "Memadai" },
+            "0147697565": { nama: "AKHMAD AMRI FURQON", tglLahir: "DD-Bulan-YYYY", mtk: "46.67", ketMtk: "Memadai", ind: "66.67", ketInd: "Memadai" },
+            "0142704254": { nama: "SITI NUR AZIZAH", tglLahir: "DD-Bulan-YYYY", mtk: "46.67", ketMtk: "Memadai", ind: "73.33", ketInd: "Memadai" },
+            "0132515528": { nama: "Annisa Rahma Fatimatuz Zahra", tglLahir: "DD-Bulan-YYYY", mtk: "66.67", ketMtk: "Baik", ind: "80.00", ketInd: "Baik" },
+            "0139735737": { nama: "Mutia Zulfa", tglLahir: "DD-Bulan-YYYY", mtk: "43.33", ketMtk: "Memadai", ind: "90.00", ketInd: "Baik" },
+            "0137203073": { nama: "RAISHA ARDYNIN RAKHSHANDRINA", tglLahir: "DD-Bulan-YYYY", mtk: "56.67", ketMtk: "Baik", ind: "60.00", ketInd: "Memadai" },
+            "3137199001": { nama: "ALIVIA RAMADHANI", tglLahir: "DD-Bulan-YYYY", mtk: "63.33", ketMtk: "Baik", ind: "86.67", ketInd: "Baik" },
+            "0139525179": { nama: "Achmad Sakha Nazhirul Asrofi", tglLahir: "DD-Bulan-YYYY", mtk: "50.00", ketMtk: "Memadai", ind: "80.00", ketInd: "Baik" },
+            "0145351321": { nama: "MUCHAMMAD RIFFAT PARLOS", tglLahir: "DD-Bulan-YYYY", mtk: "53.33", ketMtk: "Memadai", ind: "66.67", ketInd: "Memadai" },
+            "0133819929": { nama: "Abiyyu Alvaro Firdaus", tglLahir: "DD-Bulan-YYYY", mtk: "30.00", ketMtk: "Kurang", ind: "76.67", ketInd: "Baik" },
+            "0142422432": { nama: "M.NAUFAL ARDIANSYAH", tglLahir: "DD-Bulan-YYYY", mtk: "30.00", ketMtk: "Kurang", ind: "53.33", ketInd: "Memadai" },
+            "0136380032": { nama: "MUHAMMAD ALVIN RISDIANTO", tglLahir: "DD-Bulan-YYYY", mtk: "13.33", ketMtk: "Kurang", ind: "60.00", ketInd: "Memadai" },
+            "0131128748": { nama: "MARITZA AMIRA AZ ZAHRA", tglLahir: "DD-Bulan-YYYY", mtk: "60.00", ketMtk: "Baik", ind: "70.00", ketInd: "Memadai" },
+            "0144911573": { nama: "NAJWA KHAIRIN WILDA", tglLahir: "DD-Bulan-YYYY", mtk: "40.00", ketMtk: "Memadai", ind: "76.67", ketInd: "Baik" },
+            "0135241014": { nama: "AQILAH NAURA FAUZAHRA", tglLahir: "DD-Bulan-YYYY", mtk: "46.67", ketMtk: "Memadai", ind: "83.33", ketInd: "Baik" },
+            "0132373715": { nama: "RAFLI ADITYA AINURRAHMAN", tglLahir: "DD-Bulan-YYYY", mtk: "53.33", ketMtk: "Memadai", ind: "50.00", ketInd: "Memadai" },
+            "0134985780": { nama: "ALFIATUL MAGHFIROH", tglLahir: "DD-Bulan-YYYY", mtk: "40.00", ketMtk: "Memadai", ind: "40.00", ketInd: "Kurang" },
+            "0134223175": { nama: "BINTANG RENGGA SOFYANTO", tglLahir: "DD-Bulan-YYYY", mtk: "43.33", ketMtk: "Memadai", ind: "26.67", ketInd: "Kurang" },
+            "0142800621": { nama: "RAHAYU INDAH LESTARI", tglLahir: "DD-Bulan-YYYY", mtk: "36.67", ketMtk: "Memadai", ind: "46.67", ketInd: "Kurang" },
+            "3145297350": { nama: "SITI MAULIDATUL LITFIA", tglLahir: "DD-Bulan-YYYY", mtk: "33.33", ketMtk: "Memadai", ind: "66.67", ketInd: "Memadai" },
+            "3137526776": { nama: "MIKAYLA ZAHRAH RASYID", tglLahir: "DD-Bulan-YYYY", mtk: "43.33", ketMtk: "Memadai", ind: "76.67", ketInd: "Baik" },
+            "0131200430": { nama: "ELVIRA FILIANA TANTRI", tglLahir: "DD-Bulan-YYYY", mtk: "60.00", ketMtk: "Baik", ind: "60.00", ketInd: "Memadai" },
+            "3132529302": { nama: "IMAM HAMBALI", tglLahir: "DD-Bulan-YYYY", mtk: "46.67", ketMtk: "Memadai", ind: "46.67", ketInd: "Kurang" },
+            "0134158643": { nama: "Ervin Danish Abhinaya", tglLahir: "DD-Bulan-YYYY", mtk: "66.67", ketMtk: "Baik", ind: "80.00", ketInd: "Baik" },
+            "0131786730": { nama: "MUCHAMMAD FARIZ NAUFAL", tglLahir: "DD-Bulan-YYYY", mtk: "43.33", ketMtk: "Memadai", ind: "83.33", ketInd: "Baik" },
+            "3136465257": { nama: "HAFIZA NURUSSAKHI", tglLahir: "DD-Bulan-YYYY", mtk: "33.33", ketMtk: "Memadai", ind: "50.00", ketInd: "Memadai" },
+            "0139311556": { nama: "DAFFA ABDILLAH AMZAR", tglLahir: "DD-Bulan-YYYY", mtk: "86.67", ketMtk: "Baik", ind: "70.00", ketInd: "Memadai" },
+            "0135524340": { nama: "AGAM ABDILAH PRATAMA", tglLahir: "DD-Bulan-YYYY", mtk: "50.00", ketMtk: "Memadai", ind: "50.00", ketInd: "Memadai" },
+            "0133200607": { nama: "MUHAMMAD ADITYA DEVANO", tglLahir: "DD-Bulan-YYYY", mtk: "70.00", ketMtk: "Baik", ind: "83.33", ketInd: "Baik" },
+            "0138894441": { nama: "ANGGUN NOVITA IRAWAN", tglLahir: "DD-Bulan-YYYY", mtk: "63.33", ketMtk: "Baik", ind: "80.00", ketInd: "Baik" },
+            "0138401279": { nama: "Mutiara Oktaviana Zhubir", tglLahir: "DD-Bulan-YYYY", mtk: "46.67", ketMtk: "Memadai", ind: "36.67", ketInd: "Kurang" },
+            "3138513858": { nama: "MUHAMMAD JUNIO AGUSTIAN", tglLahir: "DD-Bulan-YYYY", mtk: "46.67", ketMtk: "Memadai", ind: "86.67", ketInd: "Baik" },
+            "0133200110": { nama: "NUR INAYA AZMI ATHIFA", tglLahir: "DD-Bulan-YYYY", mtk: "40.00", ketMtk: "Memadai", ind: "53.33", ketInd: "Memadai" },
+            "0149197233": { nama: "Mukhammad Maulana Al Hadi", tglLahir: "DD-Bulan-YYYY", mtk: "36.67", ketMtk: "Memadai", ind: "46.67", ketInd: "Kurang" },
+            "0144611759": { nama: "MIKAYLA AIRIN NASTRIA", tglLahir: "DD-Bulan-YYYY", mtk: "60.00", ketMtk: "Baik", ind: "86.67", ketInd: "Baik" },
+            "0138120254": { nama: "AKHMAD IKLIL FARHANI", tglLahir: "DD-Bulan-YYYY", mtk: "30.00", ketMtk: "Kurang", ind: "56.67", ketInd: "Memadai" },
+            "0147282162": { nama: "AZARINE MAHIRA ZHAFIRAH", tglLahir: "DD-Bulan-YYYY", mtk: "40.00", ketMtk: "Memadai", ind: "50.00", ketInd: "Memadai" },
+            "0137991663": { nama: "MEILA KUSUMA ARZAQINA", tglLahir: "DD-Bulan-YYYY", mtk: "23.33", ketMtk: "Kurang", ind: "73.33", ketInd: "Memadai" },
+            "0134267673": { nama: "ZIDAN KAMALU RIZQI", tglLahir: "DD-Bulan-YYYY", mtk: "40.00", ketMtk: "Memadai", ind: "73.33", ketInd: "Memadai" },
+            "0138932147": { nama: "RAISYAH AMALIA", tglLahir: "DD-Bulan-YYYY", mtk: "53.33", ketMtk: "Memadai", ind: "76.67", ketInd: "Baik" },
+            "0136351581": { nama: "RAFLI OKTA WARDHANI", tglLahir: "DD-Bulan-YYYY", mtk: "40.00", ketMtk: "Memadai", ind: "80.00", ketInd: "Baik" },
+            "0135915253": { nama: "MUHAMAD DWI PRASOJO", tglLahir: "DD-Bulan-YYYY", mtk: "50.00", ketMtk: "Memadai", ind: "73.33", ketInd: "Memadai" },
+            "0144325813": { nama: "Rafisqi Pique Zesiro", tglLahir: "DD-Bulan-YYYY", mtk: "53.33", ketMtk: "Memadai", ind: "60.00", ketInd: "Memadai" },
+            "0144085536": { nama: "SAKINAH NUR MAULIDA", tglLahir: "DD-Bulan-YYYY", mtk: "46.67", ketMtk: "Memadai", ind: "83.33", ketInd: "Baik" }
+        };
+
+        const formPencarian = document.getElementById('section-pencarian');
+        const tampilanHasil = document.getElementById('section-hasil');
+        const inputNisn = document.getElementById('nisn');
+        const pesanError = document.getElementById('pesan-error');
+
+        function cekHasil(event) {
+            event.preventDefault();
+            const nisn = inputNisn.value.trim();
+            pesanError.style.display = 'none';
+
+            if (dataSiswa[nisn]) {
+                const siswa = dataSiswa[nisn];
+
+                document.getElementById('nama-siswa').textContent = siswa.nama;
+                document.getElementById('nisn-siswa').textContent = `NISN: ${nisn}`;
+                
+                // Menampilkan Tanggal Lahir (Cek jika kosong)
+                document.getElementById('ttl-siswa').textContent = `Tanggal Lahir: ${siswa.tglLahir || '-'}`;
+                
+                document.getElementById('nilai-mtk').textContent = siswa.mtk;
+                document.getElementById('ket-mtk').textContent = `(${siswa.ketMtk})`;
+
+                document.getElementById('nilai-ind').textContent = siswa.ind;
+                document.getElementById('ket-ind').textContent = `(${siswa.ketInd})`;
+
+                formPencarian.style.display = 'none';
+                tampilanHasil.style.display = 'block';
+            } else {
+                pesanError.textContent = "NISN tidak ditemukan! Silakan cek kembali.";
+                pesanError.style.display = 'block';
+            }
+        }
+
+        function kembali() {
+            inputNisn.value = '';
+            tampilanHasil.style.display = 'none';
+            formPencarian.style.display = 'block';
+            pesanError.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
