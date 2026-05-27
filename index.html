@@ -26,16 +26,25 @@
             padding: 32px;
         }
         
-        /* Bagian Header & Logo SVG (Tanpa File Eksternal) */
+        /* Bagian Header & Logo Gambar */
         .header { text-align: center; margin-bottom: 32px; }
         .icon-wrapper {
-            background-color: #dbeafe;
-            width: 72px; height: 72px;
+            width: 80px; 
+            height: 80px;
             border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
             margin: 0 auto 12px;
+            overflow: hidden; /* Menjaga agar logo tetap bulat */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background-color: #f9fafb; /* Warna latar jika gambar gagal dimuat */
         }
-        .icon-wrapper svg { width: 36px; height: 36px; fill: none; stroke: #2563eb; stroke-width: 2; }
+        .icon-wrapper img {
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; /* Memastikan logo pas di dalam lingkaran */
+        }
         .header h1 { font-size: 20px; font-weight: 700; color: #111827; margin-bottom: 4px; line-height: 1.2; }
         .header p { font-size: 14px; color: #6b7280; }
         
@@ -109,10 +118,7 @@
     <div class="card">
         <div class="header">
             <div class="icon-wrapper">
-                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                    <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                </svg>
+                <img src="169981.jpg" alt="Logo UPT SDN Krampyangan" onerror="this.style.display='none'">
             </div>
             <h1>Pengumuman TKA 2026</h1>
             <p>UPT SD Negeri Krampyangan</p>
@@ -154,7 +160,7 @@
     </div>
 
     <script>
-        // Data Siswa (Diperbarui penulisan huruf Tempat Tanggal Lahir sesuai file PDF)
+        // Data Siswa
         const dataSiswa = {
             "0135026239": { nama: "Rendi Hariyanto", tglLahir: "Pasuruan, 27 Oktober 2013", mtk: "63.33", ketMtk: "Baik", ind: "70.00", ketInd: "Memadai" },
             "0144187077": { nama: "ANISA CITRA MAULUDDIAH", tglLahir: "PASURUAN, 15 Januari 2014", mtk: "56.67", ketMtk: "Baik", ind: "56.67", ketInd: "Memadai" },
